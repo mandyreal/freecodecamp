@@ -19,35 +19,34 @@ function getLocation(position) {
 	var city, country;
 
   	$.getJSON(url, function(response) {
-    city = response.results[0].address_components[2].short_name;
+    city    = response.results[0].address_components[2].short_name;
     country = response.results[0].address_components[3].long_name;
+    lat     = response.results[0].geometry.location.lat;
+    lng     = response.results[0].geometry.location.lng;
     $('#location').text(city + ", " + country);
+    console.log("latitude : " + response.results[0].geometry.location.lat);
+    console.log("longitude: " + lng);
     console.log(city + "," + country);
-    getWeather(city, country);
+    getWeather(lat, lng);
 	});
 
-function getWeather(city, country) {
-	var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country +'&appid=e4c8a9da719d414b907f7a31035009b1&units=metric';
-//	var url = 'http://api.openweathermap.org/data/2.5/weather?q=New York,USA&appid=e4c8a9da719d414b907f7a31035009b1&units=metric';  	
+function getWeather(lat, lng) {
+    var url = 'https://api.darksky.net/forecast/30bc4b1802b0772391efd41af4b9859e/' + lat + ',' + lng;
 
-  	$.getJSON(url, function(response) {
-  	var hr = (new Date()).getHours(); 
-  	var day_night;
-  	if (hr >= 5 && hr <= 17) {
-  		day_night = "day-"
-  	} else {
-  		day_night = "night-"
-  	};
-  	console.log("Hour of day : " + hr + " " + day_night);	
-  	console.log("OWM icon : " + response.weather[0].id);
-    $('#icon').removeClass();
-    $('#icon').addClass('wi wi-owm-' + day_night + response.weather[0].id);
-//	$('#icon').addClass('wi wi-night-clear');
-	console.log("OWM temp : " + response.main.temp);
-	console.log("OWM desc : " + response.weather[0].description);
-    $('#temperature').text(response.main.temp + '  °C');
-    $('#description').text(response.weather[0].description);
-	});
+	$.ajax({
+       url: url,
+       dataType: "jsonp",
+       success: function (response) {
+          	console.log("call successful");
+       	  	console.log("Response : " + response.currently.summary);
+			console.log("Icon     : " + response.currently.icon);
+			console.log("Temp     : " + response.currently.temperature);
+			$('#icon').removeClass();
+    		$('#icon').addClass('wi wi-forecast-io-' + response.currently.icon);
+    		$('#temperature').text(response.currently.temperature + '  °F');
+    		$('#description').text(response.currently.summary);
+       }
+    });
 };
 
 };

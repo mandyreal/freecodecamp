@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log("main app invoked...");
 	var loc = $('#location');
 	getPosition();
 });
@@ -13,9 +12,7 @@ function getPosition() {
 };
 
 function getLocation(position) {
-	console.log("call to getLocation");
 	var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude;
-
 	var city, country;
 
   	$.getJSON(url, function(response) {
@@ -24,9 +21,6 @@ function getLocation(position) {
     lat     = response.results[0].geometry.location.lat;
     lng     = response.results[0].geometry.location.lng;
     $('#location').text(city + ", " + country);
-    console.log("latitude : " + response.results[0].geometry.location.lat);
-    console.log("longitude: " + lng);
-    console.log(city + "," + country);
     getWeather(lat, lng);
 	});
 
@@ -37,14 +31,23 @@ function getWeather(lat, lng) {
        url: url,
        dataType: "jsonp",
        success: function (response) {
-          	console.log("call successful");
-       	  	console.log("Response : " + response.currently.summary);
-			console.log("Icon     : " + response.currently.icon);
-			console.log("Temp     : " + response.currently.temperature);
+			var tempCelsius = Math.round((response.currently.temperature - 32) * 5 / 9 );
+			var tempFahrenheit = Math.round(response.currently.temperature);
+			var oddEvenCounter = 0;
+
 			$('#icon').removeClass();
     		$('#icon').addClass('wi wi-forecast-io-' + response.currently.icon);
-    		$('#temperature').text(response.currently.temperature + '  °F');
+     		$('#temperature').text(tempFahrenheit + '  °F');
     		$('#description').text(response.currently.summary);
+    		$("input").change(function() {
+    			oddEvenCounter += 1;
+    			if (oddEvenCounter % 2 == 1) {
+    				$('#temperature').text(tempCelsius + '  °C');
+    			}
+    			else {
+    				$('#temperature').text(tempFahrenheit + '  °F');
+    			}	
+    		});
        }
     });
 };

@@ -20,6 +20,9 @@ function getLocation(position) {
     country = response.results[0].address_components[3].long_name;
     lat     = response.results[0].geometry.location.lat;
     lng     = response.results[0].geometry.location.lng;
+    console.log("City is    : " + city);
+    console.log("Country is : " + country);
+    
     $('#location').text(city + ", " + country);
     getWeather(lat, lng);
 	});

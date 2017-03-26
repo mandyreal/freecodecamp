@@ -14,11 +14,53 @@ $(document).ready(function(){
     var totaldiv = $("#total");
     totaldiv.text("0");
     
-    $('#numbers > a').not($('#clear'),$('#clearall')).click(
-        function(){
-            number += $(this).html();
-            totaldiv.text(number);
-            testNumLength(number);
+    $('#numbers > a').not('#clear,#clearall').click(function(){
+        number += $(this).html();
+        totaldiv.text(number);
+        testNumLength(number);
+    });
+
+    $('#operators > a').not('#equals').click(function(){
+        operator = $(this).text();
+        newnumber = number;
+//        if (operator == "+") {
+//            number = (parseInt(number, 10) + parseInt(newnumber, 10)).toString();
+//            totaldiv.text(number)
+//            newnumber = number;
+//        }
+        
+        number = "";
+        totaldiv.text($(this).text());
+    });
+
+    $('#clear,#clearall').click(function(){
+        number = "";
+        totaldiv.text("0");
+        if ($(this).attr("id") === "clearall") {
+            newnumber = "";
         }
-    );
+    });
+
+    $('#equals').click(function(){
+        if (operator == "+") {
+            number = (parseInt(number, 10) + parseInt(newnumber, 10)).toString();
+            totaldiv.text(number)
+            newnumber = number;
+        } else if (operator == "-") {
+            number = (parseInt(newnumber, 10) - parseInt(number, 10)).toString();
+            totaldiv.text(number)
+            newnumber = number;
+        } else if (operator == "*") {
+            number = (parseInt(newnumber, 10) * parseInt(number, 10)).toString();
+            totaldiv.text(number)
+            newnumber = number;
+        } else if (operator == "/") {
+            console.log("division.." + newnumber + "/" + number)
+            number = (parseInt(newnumber, 10) / parseInt(number, 10)).toString();
+            totaldiv.text(number);
+            newnumber = number;
+        }
+        testNumLength(number);
+    });
+
 });

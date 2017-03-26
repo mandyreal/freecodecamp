@@ -37,7 +37,7 @@ body, div, a {
     text-decoration: none;
     color: black;
     text-align: center;
-    font-size: 39px;
+    font-size: 29px;
     padding: 2px;
     margin: 5px 6px;
     background: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#DCDCDC));
@@ -53,10 +53,16 @@ body, div, a {
     text-decoration: none;
     color: black;
     text-align: center;
-    font-size: 32pt;
+    font-size: 25pt;
     padding: 10px;
     margin: 5px 15px;
     background: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#DCDCDC));
     background: -moz-linear-gradient(top, #EDEDED, #DCDCDC);
     border-radius: 10px;
+}
+
+a:hover{
+    background: -webkit-gradient(linear, left top, left bottom, from(#DCDCDC), to(#EDEDED));
+    background: -moz-linear-gradient(top,  #DCDCDC,  #EDEDED);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCDCDC', endColorstr='#EDEDED');
 }

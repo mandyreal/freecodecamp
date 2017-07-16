@@ -11,26 +11,29 @@ $(document).ready(function(){
 	var number = "";
     var newnumber = "";
     var operator = "";
+    var fullInput = "";
     var totaldiv = $("#total");
+    var inputIsNumber = false;
     totaldiv.text("0");
     
     $('#numbers > a').not('#clear,#clearall').click(function(){
         number += $(this).html();
+        inputIsNumber = true;
+        fullInput = number;
         totaldiv.text(number);
         testNumLength(number);
     });
 
     $('#operators > a').not('#equals').click(function(){
         operator = $(this).text();
-        newnumber = number;
-//        if (operator == "+") {
-//            number = (parseInt(number, 10) + parseInt(newnumber, 10)).toString();
-//            totaldiv.text(number)
-//            newnumber = number;
-//        }
-        
+        if (inputIsNumber) {
+            fullInput += operator;
+            inputIsNumber = false;
+        }
+        newnumber = number;        
         number = "";
         totaldiv.text($(this).text());
+        console.log("Input : " + fullInput);
     });
 
     $('#clear,#clearall').click(function(){

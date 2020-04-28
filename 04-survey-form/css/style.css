@@ -1,0 +1,62 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+   font-family: 'Roboto', sans-serif;
+   text-align: center;
+   margin: 0;
+   background-color: green;
+}
+
+form {
+    background-color: white;
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 2px 5px 10px;
+    border-radius: 2px;
+    padding: 30px 20px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+    text-align: left;
+    font-family: inherit;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.form-control input, .form-control select {
+    border: 1 px solid #7777;
+    border-radius: 2px;
+    font-size: 14px;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-control input[type="radio"], .form-control input[type="checkbox"]{
+    display: inline-block;
+    width: auto;
+}
+
+.form-control textarea {
+    min-height: 120px;
+    width: 100%;
+}
+
+.form-control button {
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+    background: #37af65;
+    color: inherit;
+    cursor: pointer;
+    font-size: 16px;
+    height: 60px;
+}
